@@ -1,0 +1,46 @@
+Enitity :
+ - Users
+   * id : int (pk)
+   * name : varchar
+   * occupation (pekerjaan) : varchar
+   * email : varchar
+   * password_hash : varchar
+   * avatar_file_name : varchar
+   * role : varchar
+   * token : varchar
+   * created_at : datetime
+   * updated_at : datetime
+   
+ - Campaigns
+   * id : int (pk)
+   * user_id : int (fk)
+   * name : varchar 
+   * short_description : varchar
+   * description : text
+   * goal_amount : int
+   * current_amount : int
+   * perks : text
+   * backer_count : int
+   * slug : varchar 
+   * created_at : datetime
+   * updated_at : datetime
+   
+  - Campaign Images
+   * id : int (pk)
+   * campaign_id : int (fk)
+   * file_name  : varchar
+   * is_primary : boolean (tinyint) | 1 true | 0 false
+   * created_at : datetime
+   * updated_at : datetime
+   
+ - Transactions
+   * id : int (pk)
+   * campaign_id : int (fk)
+   * user_id :int (fk)
+   * amount : int (kita buat di bilangan bulat)
+   * status : varchar
+   * code : varchar
+   * created_at : datetime
+   * updated_at : datetime
+ 
+ 

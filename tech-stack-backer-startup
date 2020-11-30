@@ -1,0 +1,2 @@
+go gin > for handler http request
+go orm > for accesing database
