@@ -1,8 +1,10 @@
 package main
 
 import (
+	"backer-startup/auth"
 	"backer-startup/handler"
 	"backer-startup/user"
+	"fmt"
 	"log"
 
 	"github.com/gin-gonic/gin"
@@ -21,14 +23,29 @@ func main() {
 
 	userRepository := user.NewRepository(db)
 	userService := user.NewService(userRepository)
+	authService := auth.NewService()
 
-	userHandler := handler.NewUserHandler(userService)
+	token, err := authService.ValidateToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0fQ.gPQZuzlzKZsJevcIpEX_M5rjWbfhw_ZdPIdjaHd6IKE")
+	if err != nil {
+		fmt.Println("ERROR")
+	}
+
+	if token.Valid {
+		fmt.Println("VALID")
+	} else {
+		fmt.Println("INVALID")
+	}
+
+	userHandler := handler.NewUserHandler(userService, authService)
 
 	router := gin.Default()
 
 	api := router.Group("/api/v1")
 
 	api.POST("/users", userHandler.RegisterUser)
+	api.POST("/sessions", userHandler.Login)
+	api.POST("/email_checkers", userHandler.CheckEmailAvailabilty)
+	api.POST("/avatars", userHandler.UploadAvatar)
 
 	router.Run()
 }
