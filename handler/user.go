@@ -143,8 +143,11 @@ func (h *userHandler) UploadAvatar(c *gin.Context) {
 		return
 	}
 
-	// id get from jwt
-	userID := 1
+	// id get from jwt (context currentUser)
+	currentUser := c.MustGet("currentUser").(user.User)
+	userID := currentUser.ID
+
+	fmt.Println(currentUser.ID, "id from get jwt by set context")
 
 	//string merger
 	path := fmt.Sprintf("images/%d-%s", userID, file.Filename)
