@@ -4,6 +4,7 @@ import (
 	"backer-startup/auth"
 	"backer-startup/handler"
 	"backer-startup/user"
+	"fmt"
 	"log"
 
 	"github.com/gin-gonic/gin"
@@ -23,6 +24,17 @@ func main() {
 	userRepository := user.NewRepository(db)
 	userService := user.NewService(userRepository)
 	authService := auth.NewService()
+
+	token, err := authService.ValidateToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0fQ.gPQZuzlzKZsJevcIpEX_M5rjWbfhw_ZdPIdjaHd6IKE")
+	if err != nil {
+		fmt.Println("ERROR")
+	}
+
+	if token.Valid {
+		fmt.Println("VALID")
+	} else {
+		fmt.Println("INVALID")
+	}
 
 	userHandler := handler.NewUserHandler(userService, authService)
 
