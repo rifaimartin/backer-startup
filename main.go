@@ -2,6 +2,7 @@ package main
 
 import (
 	"backer-startup/auth"
+	"backer-startup/campaign"
 	"backer-startup/handler"
 	"backer-startup/helper"
 	"backer-startup/user"
@@ -27,8 +28,20 @@ func main() {
 	}
 
 	userRepository := user.NewRepository(db)
+	campaignRepository := campaign.NewRepository(db)
 	userService := user.NewService(userRepository)
 	authService := auth.NewService()
+
+	campaigns, err := campaignRepository.FindByUserID(1)
+
+	fmt.Println(len(campaigns))
+
+	for _, campaign := range campaigns {
+		fmt.Println(campaign.Name)
+		if len(campaign.CampaignImages) > 0 {
+			fmt.Println(campaign.CampaignImages[0].FileName)
+		}
+	}
 
 	// token, err := authService.ValidateToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0fQ.gPQZuzlzKZsJevcIpEX_M5rjWbfhw_ZdPIdjaHd6IKE")
 	// if err != nil {
