@@ -1,5 +1,5 @@
-go gin > for handler http request
-go orm > for accesing database
+go gin > for handler http request || https://github.com/gin-gonic/gin
+go orm > for accesing database || https://gorm.io/docs/connecting_to_the_database.html
 
 
 git handler cuma bisa satu parameter
