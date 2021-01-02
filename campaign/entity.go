@@ -1,6 +1,7 @@
 package campaign
 
 import (
+	"backer-startup/user"
 	"time"
 )
 
@@ -19,9 +20,10 @@ type Campaign struct {
 	CreatedAt        time.Time
 	UpdatedAt        time.Time
 	CampaignImages   []CampaignImage
+	User             user.User
 }
 
-// CampaignImage Struct
+// CampaignImage this is Struct
 type CampaignImage struct {
 	ID         int
 	CampaignID int
