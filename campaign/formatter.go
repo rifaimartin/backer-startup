@@ -4,7 +4,7 @@ import (
 	"strings"
 )
 
-// CampaignFormatter type formatter
+//CampaignFormatter type formatter
 type CampaignFormatter struct {
 	ID               int    `json:"id"`
 	UserID           int    `json:"user_id"`
@@ -16,6 +16,7 @@ type CampaignFormatter struct {
 	Slug             string `json:"slug"`
 }
 
+//FormatCampaign this function format campaign return
 func FormatCampaign(campaign Campaign) CampaignFormatter {
 	campaignFormatter := CampaignFormatter{}
 	campaignFormatter.ID = campaign.ID
@@ -51,6 +52,7 @@ func FormatCampaigns(campaigns []Campaign) []CampaignFormatter {
 	return campaignsFormatter
 }
 
+//CampaignDetailFormatter struct
 type CampaignDetailFormatter struct {
 	ID               int                      `json:"id"`
 	Name             string                   `json:"name"`
