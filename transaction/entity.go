@@ -1,6 +1,9 @@
 package transaction
 
-import "time"
+import (
+	"backer-startup/user"
+	"time"
+)
 
 //Transaction struct
 type Transaction struct {
@@ -10,6 +13,7 @@ type Transaction struct {
 	Amount     int
 	Status     string
 	Code       string
+	User       user.User
 	CreatedAt  time.Time
 	UpdatedAt  time.Time
 }
