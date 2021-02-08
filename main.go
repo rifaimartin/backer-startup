@@ -37,6 +37,16 @@ func main() {
 	authService := auth.NewService()
 	transactionService := transaction.NewService(transactionRepository, campaignRepository)
 
+	// user, _ := userService.GetUserByID(1)
+
+	// input := transaction.CreateTransactionInput{
+	// 	CampaignID: 9,
+	// 	Amount:     500000,
+	// 	User:       user,
+	// }
+
+	// transactionService.CreateTransaction(input)
+
 	// token, err := authService.ValidateToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0fQ.gPQZuzlzKZsJevcIpEX_M5rjWbfhw_ZdPIdjaHd6IKE")
 	// if err != nil {
 	// 	fmt.Println("ERROR")
@@ -70,6 +80,7 @@ func main() {
 
 	api.GET("campaigns/:id/transactions", authMiddleware(authService, userService), transactionHandler.GetCampaignTransaction)
 	api.GET("transactions", authMiddleware(authService, userService), transactionHandler.GetUserTransactions)
+	api.POST("transactions", authMiddleware(authService, userService), transactionHandler.CreateTransaction)
 
 	router.Run()
 }
