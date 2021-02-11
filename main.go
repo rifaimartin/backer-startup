@@ -5,6 +5,7 @@ import (
 	"backer-startup/campaign"
 	"backer-startup/handler"
 	"backer-startup/helper"
+	"backer-startup/payment"
 	"backer-startup/transaction"
 	"backer-startup/user"
 	"fmt"
@@ -35,7 +36,18 @@ func main() {
 	userService := user.NewService(userRepository)
 	campaignService := campaign.NewService(campaignRepository)
 	authService := auth.NewService()
-	transactionService := transaction.NewService(transactionRepository, campaignRepository)
+	paymentService := payment.NewService()
+	transactionService := transaction.NewService(transactionRepository, campaignRepository, paymentService)
+
+	// user, _ := userService.GetUserByID(1)
+
+	// input := transaction.CreateTransactionInput{
+	// 	CampaignID: 9,
+	// 	Amount:     500000,
+	// 	User:       user,
+	// }
+
+	// transactionService.CreateTransaction(input)
 
 	// token, err := authService.ValidateToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0fQ.gPQZuzlzKZsJevcIpEX_M5rjWbfhw_ZdPIdjaHd6IKE")
 	// if err != nil {
@@ -70,6 +82,7 @@ func main() {
 
 	api.GET("campaigns/:id/transactions", authMiddleware(authService, userService), transactionHandler.GetCampaignTransaction)
 	api.GET("transactions", authMiddleware(authService, userService), transactionHandler.GetUserTransactions)
+	api.POST("transactions", authMiddleware(authService, userService), transactionHandler.CreateTransaction)
 
 	router.Run()
 }
