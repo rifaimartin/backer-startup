@@ -5,6 +5,7 @@ import (
 	"backer-startup/campaign"
 	"backer-startup/handler"
 	"backer-startup/helper"
+	"backer-startup/payment"
 	"backer-startup/transaction"
 	"backer-startup/user"
 	"fmt"
@@ -35,7 +36,8 @@ func main() {
 	userService := user.NewService(userRepository)
 	campaignService := campaign.NewService(campaignRepository)
 	authService := auth.NewService()
-	transactionService := transaction.NewService(transactionRepository, campaignRepository)
+	paymentService := payment.NewService()
+	transactionService := transaction.NewService(transactionRepository, campaignRepository, paymentService)
 
 	// user, _ := userService.GetUserByID(1)
 

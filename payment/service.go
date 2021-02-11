@@ -1,7 +1,6 @@
 package payment
 
 import (
-	"backer-startup/transaction"
 	"backer-startup/user"
 	"strconv"
 
@@ -13,17 +12,17 @@ type service struct {
 
 //Service new service
 type Service interface {
-	GetToken(transaction transaction.Transaction, user user.User) (string, error)
+	GetPaymentUrl(transaction Transaction, user user.User) (string, error)
 }
 
 func NewService() *service {
 	return &service{}
 }
 
-func (s *service) GetToken(transaction transaction.Transaction, user user.User) (string, error) {
+func (s *service) GetPaymentUrl(transaction Transaction, user user.User) (string, error) {
 	midclient := midtrans.NewClient()
-	midclient.ServerKey = "YOUR-VT-SERVER-KEY"
-	midclient.ClientKey = "YOUR-VT-CLIENT-KEY"
+	midclient.ServerKey = ""
+	midclient.ClientKey = ""
 	midclient.APIEnvType = midtrans.Sandbox
 
 	var snapGateway midtrans.SnapGateway
