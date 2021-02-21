@@ -1,5 +1,11 @@
 # backer-startup
 
+install :
+ * go mod download
+
+run-dev:
+ * go run ./main.go
+
 package user:
  * go gin > for handler http request
  * go orm > for accesing database
