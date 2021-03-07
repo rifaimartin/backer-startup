@@ -1,0 +1,11 @@
+.PHONY: install test-dev run-dev build start
+
+install:
+	go mod download
+
+run-dev:
+	go run ./main.go
+
+build:
+	CGO_ENABLED=1 GOOS=linux go build -tags musl -a -o main &&\
+		cp main /tmp/main
