@@ -75,7 +75,7 @@ func main() {
 	router := gin.Default()
 	router.Use(cors.Default())
 
-	router.LoadHTMLGlob("web/templates/**/*")
+	// router.LoadHTMLGlob("web/templates/**/*") temp
 	router.HTMLRender = loadTemplates("./web/templates")
 
 	router.Static("/images", "./images")
