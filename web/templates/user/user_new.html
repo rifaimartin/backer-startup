@@ -2,6 +2,10 @@
 
 <h2 class="mb-4">Create New User</h2>
 
+{{ if .Error}}
+<div class="div alert alert-danger">{{ .Error}}</div>
+{{ end }}
+
 <div class="card mb-4">
   <div class="card-body">
     <form action="/users" method="POST">
@@ -13,6 +17,7 @@
           placeholder="Enter Name"
           required
           class="form-control"
+          value="{{ .Name}}"
         />
       </div>
 
@@ -24,6 +29,7 @@
           placeholder="Enter Email"
           required
           class="form-control"
+          value="{{ .Email}}"
         />
       </div>
 
@@ -35,6 +41,7 @@
           placeholder="Enter Name"
           required
           class="form-control"
+          value="{{ .Occupation}}"
         />
       </div>
 
