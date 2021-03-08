@@ -8,13 +8,13 @@ import (
 	"backer-startup/payment"
 	"backer-startup/transaction"
 	"backer-startup/user"
-	"github.com/gin-contrib/multitemplate"
-	"path/filepath"
 	"fmt"
 	"log"
 	"net/http"
+	"path/filepath"
 	"strings"
 
+	"github.com/gin-contrib/multitemplate"
 
 	webHandler "backer-startup/web/handler"
 
@@ -70,7 +70,7 @@ func main() {
 	campaignHandler := handler.NewCampaignHandler(campaignService)
 	transactionHandler := handler.NewTransactionHandler(transactionService)
 
-	userWebHandler := webHandler.NewUserHandler()
+	userWebHandler := webHandler.NewUserHandler(userService)
 
 	router := gin.Default()
 	router.Use(cors.Default())
@@ -104,6 +104,8 @@ func main() {
 	api.POST("/transactions/notification", transactionHandler.GetNotification)
 
 	router.GET("/users", userWebHandler.Index)
+	router.GET("/users/new", userWebHandler.New)
+	router.POST("/users", userWebHandler.Create)
 
 	router.Run()
 }
