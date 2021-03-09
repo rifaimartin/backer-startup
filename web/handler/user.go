@@ -2,7 +2,9 @@ package handler
 
 import (
 	"backer-startup/user"
+	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -54,6 +56,46 @@ func (h *userHandler) Create(c *gin.Context) {
 		c.HTML(http.StatusInternalServerError, "error.html", nil)
 		return
 	}
-
+ 
 	c.Redirect(http.StatusFound, "/users")
+}
+
+func (h *userHandler) Edit(c *gin.Context) {
+	idParam := c.Param("id")
+
+	id, _ := strconv.Atoi(idParam)
+
+	fmt.Println("lu di panggil gk bego")
+
+	registeredUser, err := h.userService.GetUserByID(id)
+
+	if err != nil {
+		c.HTML(http.StatusInternalServerError, "error.html", nil)
+	}
+
+	c.HTML(http.StatusOK, "user_edit.html", registeredUser)
+
+}
+
+func (h *userHandler) Update(c *gin.Context) {
+	idParam := c.Param("id")
+	id, _ := strconv.Atoi(idParam)	
+
+	var input user.FormUpdateUserInput
+
+	err := c.ShouldBind(&input)
+	if err != nil {
+		//skip
+	}
+
+	input.ID = id
+
+	_, err = h.userService.UpdateUser(input)
+
+	if err != nil {
+		c.HTML(http.StatusInternalServerError, "error.html" , nil)
+		return
+	}
+
+	 c.Redirect(http.StatusFound, "/users")
 }
