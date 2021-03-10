@@ -68,13 +68,18 @@ func (h *userHandler) Edit(c *gin.Context) {
 	fmt.Println("lu di panggil gk bego")
 
 	registeredUser, err := h.userService.GetUserByID(id)
-
 	if err != nil {
 		c.HTML(http.StatusInternalServerError, "error.html", nil)
+		return
 	}
 
-	c.HTML(http.StatusOK, "user_edit.html", registeredUser)
+	input := user.FormUpdateUserInput{}
+	input.ID = registeredUser.ID
+	input.Name = registeredUser.Name
+	input.Email = registeredUser.Email
+	input.Occupation = registeredUser.Occupation
 
+	c.HTML(http.StatusOK, "user_edit.html", input)
 }
 
 func (h *userHandler) Update(c *gin.Context) {
@@ -85,7 +90,9 @@ func (h *userHandler) Update(c *gin.Context) {
 
 	err := c.ShouldBind(&input)
 	if err != nil {
-		//skip
+		input.Error = err
+		c.HTML(http.StatusOK, "user_edit.html", input)
+		return
 	}
 
 	input.ID = id
@@ -98,4 +105,41 @@ func (h *userHandler) Update(c *gin.Context) {
 	}
 
 	 c.Redirect(http.StatusFound, "/users")
+}
+
+func (h *userHandler) NewAvatar(c *gin.Context) {
+	idParam := c.Param("id")
+	id, _ := strconv.Atoi(idParam)
+
+	c.HTML(http.StatusOK, "user_avatar.html", gin.H{"ID" : id})
+}
+
+func (h *userHandler) CreateAvatar(c *gin.Context) {
+	idParam := c.Param("id")
+	id, _ := strconv.Atoi(idParam)
+
+	file, err := c.FormFile("avatar")
+	if err != nil {
+		c.HTML(http.StatusInternalServerError, "error.html" , nil)
+		return
+	}
+
+	userID := id
+
+	//string merger
+	path := fmt.Sprintf("images/%d-%s", userID, file.Filename)
+
+	err = c.SaveUploadedFile(file, path)
+	if err != nil {
+		c.HTML(http.StatusInternalServerError, "error.html" , nil)
+		return
+	}
+
+	_, err = h.userService.SaveAvatar(userID, path)
+	if err != nil {
+		c.HTML(http.StatusInternalServerError, "error.html" , nil)
+		return
+	}
+
+	c.Redirect(http.StatusFound, "/users")
 }

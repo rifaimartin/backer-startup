@@ -34,5 +34,6 @@ type FormUpdateUserInput struct {
 	Name 		string `form:"name" binding:"required"`
 	Email 		string `form:"email" binding:"required,email"`
 	Occupation 	string `form:"occupation" binding:"required"`
+	Error error
 }
 
