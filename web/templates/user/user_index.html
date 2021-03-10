@@ -22,7 +22,11 @@
         {{ range.users }}
         <tr>
           <td>
-            <img class="img-fluid" src="{{.AvatarFileName}}" width="40" />
+            <img
+              class="img-fluid img-thumbnail"
+              src="{{.AvatarFileName}}"
+              width="50"
+            />
           </td>
           <td>{{ .Name }}</td>
           <td>{{ .Email }}</td>
