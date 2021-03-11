@@ -1,18 +1,17 @@
 {{ define "content"}}
-
 <h2 class="mb-4">Create New Campaign</h2>
 
-{{ if .Error}}
-<div class="div alert alert-danger">{{ .Error}}</div>
-{{ end }}
+{{ if .Error }}
+<div class="alert alert-danger">{{ .Error }}</div>
+{{end}}
 
 <div class="card mb-4">
   <div class="card-body">
     <form action="/campaigns" method="POST">
       <div class="form-group">
-        <label for="user_id">User</label>
+        <label for="name">User</label>
         <select name="user_id" class="form-control">
-          <option value="">-- Select User --</option>
+          <option value="">Select User</option>
           {{ range .Users }} {{ if eq .ID $.UserID }}
           <option value="{{ .ID }}" selected>{{ .Name }}</option>
           {{ else }}
@@ -20,41 +19,33 @@
           {{ end }} {{ end }}
         </select>
       </div>
-
       <div class="form-group">
         <label for="name">Name</label>
         <input
           type="text"
           name="name"
-          placeholder="Enter Name"
-          required
+          placeholder="Enter name"
           class="form-control"
-          value="{{ .Name}}"
+          value="{{ .Name }}"
+          required
         />
       </div>
-
       <div class="form-group">
-        <label for="short_description">Short Description</label>
+        <label for="name">Short Description</label>
         <input
           type="text"
           name="short_description"
-          placeholder="Enter Short Description"
-          required
+          placeholder="Enter short description"
           class="form-control"
-          value="{{ .ShortDescription}}"
+          value="{{ .ShortDescription }}"
+          required
         />
       </div>
-
       <div class="form-group">
-        <label for="description">Description</label>
-        <input
-          type="text"
-          name="description"
-          placeholder="Enter Description"
-          required
-          class="form-control"
-          value="{{ .Description}}"
-        />
+        <label for="name">Description</label>
+        <textarea class="form-control" name="description" rows="10">
+          {{ .Description }}
+        </textarea>
       </div>
 
       <div class="form-group">
@@ -62,29 +53,31 @@
         <input
           type="number"
           name="goal_amount"
-          placeholder="Enter Goal Amount"
-          required
+          placeholder="Enter goal amount"
           class="form-control"
-          value="{{ .GoalAmount}}"
+          min="0"
+          value="{{ .GoalAmount }}"
+          required
         />
       </div>
 
       <div class="form-group">
-        <label for="perks">Perks</label>
+        <label for="name">Perks</label>
         <input
           type="text"
           name="perks"
-          placeholder="Enter Perks"
-          required
+          placeholder="Enter perks (comma separated)"
           class="form-control"
-          value="{{ .Perks}}"
+          value="{{ .Perks }}"
+          required
         />
       </div>
-      <div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+
+      <div class="">
+        <button type=" submit" class="btn btn-primary">Submit</button>
       </div>
     </form>
   </div>
 </div>
 
-{{ end }}
+{{end}}
