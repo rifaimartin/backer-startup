@@ -28,3 +28,6 @@ func (t Transaction) AmountFormatIDR() string {
 	ac := accounting.Accounting{Symbol: "IDR ", Precision: 0, Thousand: ".", Decimal: ","}
 	return ac.FormatMoney(t.Amount)
 }
+
+
+
