@@ -4,6 +4,8 @@ import (
 	"backer-startup/campaign"
 	"backer-startup/user"
 	"time"
+
+	"github.com/leekchan/accounting"
 )
 
 //Transaction struct
@@ -19,4 +21,10 @@ type Transaction struct {
 	Campaign   campaign.Campaign
 	CreatedAt  time.Time
 	UpdatedAt  time.Time
+}
+
+//AmountFormatIDR fomat idr
+func (t Transaction) AmountFormatIDR() string {
+	ac := accounting.Accounting{Symbol: "IDR ", Precision: 0, Thousand: ".", Decimal: ","}
+	return ac.FormatMoney(t.Amount)
 }

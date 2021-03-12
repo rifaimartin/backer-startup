@@ -1,0 +1,92 @@
+{{ define "content"}}
+<h2 class="mb-4">Edit Campaign</h2>
+
+<div class="card mb-4">
+  <div class="card-body">
+    <form>
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input
+          type="text"
+          name="name"
+          placeholder="Enter name"
+          class="form-control"
+          value="{{ .Name }}"
+          disabled
+        />
+      </div>
+      <div class="form-group">
+        <label for="name">Short Description</label>
+        <input
+          type="text"
+          name="short_description"
+          placeholder="Enter short description"
+          class="form-control"
+          value="{{ .ShortDescription }}"
+          disabled
+        />
+      </div>
+      <div class="form-group">
+        <label for="name">Description</label>
+        <textarea class="form-control" name="description" rows="10" disabled>
+{{ .Description }}</textarea
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="goal_amount">Goal Amount</label>
+        <input
+          type="text"
+          name="goal_amount"
+          placeholder="Enter goal amount"
+          class="form-control"
+          min="0"
+          value="{{ .GoalAmountFormatIDR }}"
+          disabled
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="name">Perks</label>
+        <input
+          type="text"
+          name="perks"
+          placeholder="Enter perks (comma separated)"
+          class="form-control"
+          value="{{ .Perks }}"
+          disabled
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="name">Backer Count</label>
+        <input
+          type="text"
+          name="backer_count"
+          placeholder="Enter name"
+          class="form-control"
+          value="{{ .BackerCount }}"
+          disabled
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="name">Current Amount</label>
+        <input
+          type="text"
+          name="backer_count"
+          placeholder="Enter name"
+          class="form-control"
+          value="{{ .CurrentAmountFormatIDR }}"
+          disabled
+        />
+      </div>
+
+      <div class="">
+        <button type=" submit" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+{{end}}
